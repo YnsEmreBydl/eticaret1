@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->integer('is_admnin')->default(0);;
+            $table->enum('status',['0','1'])->default('0');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

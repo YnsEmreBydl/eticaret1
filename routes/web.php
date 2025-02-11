@@ -1,19 +1,38 @@
 <?php
 
+use App\Http\Controllers\AjaxController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\Frontend\PageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\PageHomeController;
 
-Route::get('/', [PageHomeController::class,'anasayfa'])->name('anasayfa');
 
-Route::get('/hakkimizda', [PageController::class,'hakkimizda'])->name('hakkimizda');
+Route::group(['middleware'=>'sitesetting'], function () {
 
-Route::get('/urunler', [PageController::class,'urunler'])->name('urunler');
+    Route::get('/', [PageHomeController::class,'anasayfa'])->name('anasayfa');
 
-Route::get('/urun/detay', [PageController::class,'urundetay'])->name('urundetay');
+    Route::get('/hakkimizda', [PageController::class,'hakkimizda'])->name('hakkimizda');
 
-Route::get('/iletisim', [PageController::class, 'iletisim'])->name('iletisim');
+    Route::get('/urunler', [PageController::class,'urunler'])->name('urunler');
 
-Route::get('/cart', [PageController::class,'cart'])->name('cart');
+    Route::get('/urun/{slug}', [PageController::class,'urundetay'])->name('urundetay');
 
-Route::get('/v', [PageController::class,'men'])->name('men');
+    Route::get('/iletisim', [PageController::class, 'iletisim'])->name('iletisim');
+
+    Route::post('/iletisim/gonder', [AjaxController::class, 'mesaj'])->name('mesaj');
+
+    Route::get('/sepet', [CartController::class,'index'])->name('sepet');
+
+    Route::post('/sepet/ekle', [CartController::class,'add'])->name('sepetekle');
+
+    Route::get('/kadin/{slug?}', [PageController::class,'urunler'])->name('kadin');
+
+    Route::get('/cocuk/{slug?}', [PageController::class,'urunler'])->name('cocuk');
+
+    Route::get('/erkek/{slug?}', [PageController::class,'urunler'])->name('erkek');
+
+    Route::get('/indirim', [PageController::class,'indirimdekiurunler'])->name('indirim');
+
+});
+
+

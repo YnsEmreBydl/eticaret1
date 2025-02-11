@@ -22,7 +22,7 @@
                   <li><a href="#"><span class="icon icon-person"></span></a></li>
                   <li><a href="#"><span class="icon icon-heart-o"></span></a></li>
                   <li>
-                    <a href="{{route('cart')}}" class="site-cart">
+                    <a href="{{route('sepet')}}" class="site-cart">
                       <span class="icon icon-shopping_cart"></span>
                       <span class="count">2</span>
                     </a>
@@ -40,34 +40,43 @@
           <ul class="site-menu js-clone-nav d-none d-md-block">
           <li class='active'><a href="{{route('anasayfa')}}">Anasayfa</a></li>
             <li class="has-children">
-              <a href="{{route('anasayfa')}}">Kategoriler</a>
+              <a href="#">Kategoriler</a>
               <ul class="dropdown">
-                <li><a href="#">Menu One</a></li>
-                <li><a href="#">Menu Two</a></li>
-                <li><a href="#">Menu Three</a></li>
+                @if (!empty($categories) && $categories->count()>0)
+                @foreach ($categories as $category)
+                @if ($category->cat_ust == null)
                 <li class="has-children">
-                  <a href="#">Sub Menu</a>
+                  <a href="{{route($category->slug)}}">{{$category->name}}</a>
                   <ul class="dropdown">
-                    <li><a href="#">Menu One</a></li>
-                    <li><a href="#">Menu Two</a></li>
-                    <li><a href="#">Menu Three</a></li>
-                  </ul>
-                </li>
+                  @foreach ($categories as $subcategory)
+                  @if ($subcategory->cat_ust == $category->id)
+                  <li><a href="{{route($category->slug,$subcategory->slug)}}">{{$subcategory->name}}</a></li>
+                  @endif
+                  @endforeach
+
+
+
+
               </ul>
             </li>
-            <li><a href="{{route('hakkimizda')}}">Hakkımızda</a></li>
+            @endif
+            @endforeach
+
+                @endif
+
+          </ul>
+          <li><a href="{{route('hakkimizda')}}">Hakkımızda</a></li>
             <li class="has-children">
               <a href="{{route('urunler')}}">Ürünler</a>
               <ul class="dropdown">
-                <li><a href="{{route('men')}}">Erkek</a></li>
+                <li><a href="{{route('erkek')}}">Erkek</a></li>
                 <li><a href="#">Menu Two</a></li>
                 <li><a href="#">Menu Three</a></li>
               </ul>
             </li>
-           
-        
+
+
             <li><a href="{{route('iletisim')}}">İletisim</a></li>
-          </ul>
         </div>
       </nav>
     </header>

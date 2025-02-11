@@ -36,7 +36,7 @@
   <script src="{{ asset('../frontend/shoppers-gh-pages/js/owl.carousel.min.js') }}"></script>
   <script src="{{ asset('../frontend/shoppers-gh-pages/js/jquery.magnific-popup.min.js') }}"></script>
   <script src="{{ asset('../frontend/shoppers-gh-pages/js/aos.js') }}"></script>
-
+  @yield('customjs')
   <script src="{{ asset('../frontend/shoppers-gh-pages/js/main.js') }}"></script>
 
   </body>
